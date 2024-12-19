@@ -147,10 +147,9 @@ class tFDP:
         graph = self.graph
         edgesrc = self.edgesrc
         edgetgt = self.edgetgt
-        if self.init == "pmds":
-            if self.randseed:
-                np.random.seed(self.randseed)
-            noise_pos = 0.01 * np.random.randn(graph.shape[0], 2)
+        if isinstance(str, self.init) and self.init == "pmds":
+            rng = np.random.default_rng(self.randseed)
+            noise_pos = 0.01 * rng.randn(graph.shape[0], 2)
             pospds = pivotMDS(graph, edgesrc, edgetgt, NP=100, hidden_size=2)
             pospds *= 2 * scaleByEdge(pospds, edgesrc, edgetgt)
             init = 1.0 * pospds.copy() + noise_pos
@@ -159,6 +158,8 @@ class tFDP:
             2,
         ):
             init = self.init
+        else:
+            raise ValueError(f"Invalid parameter {self.init = !r}")
         n_interpolation_points = 3
         if self.combine:
             n_interpolation_points = 1
