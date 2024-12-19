@@ -1,6 +1,5 @@
 from scipy.sparse import csr_matrix, tril
 import numpy as np
-import dask.dataframe  # to read large graph data
 from utils import pivotMDS, scaleByEdge, pivot_spd
 from simulation.ibFFT_CPU import ibFFT_CPU
 
@@ -11,6 +10,7 @@ import numba
 
 
 def readgraph(filename, returnDijMat=False):
+    import dask.dataframe  # to read large graph data
     edges = dask.dataframe.read_csv(filename, header=0,
                                     names=["src", "tgt", "_"], sep=' ', comment="%", dtype={"src": np.int32, "tgt": np.int32, "_": object})
     startid = min(edges.src.min().compute(), edges.tgt.min().compute())
