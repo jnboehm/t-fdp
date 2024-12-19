@@ -128,8 +128,7 @@ def ibFFT_CPU(pos, edgesrc, edgetgt, n_interpolation_points=3, intervals_per_int
     edgetgt = np.array(edgetgt, dtype=np.int32)
     bias = np.zeros(edgetgt.shape[0], dtype=np.float32)
     computebias(N, edgesrc, edgetgt, bias)
-    if seed is not None:
-        torch.manual_seed(seed)
+    rng = np.random.default_rng(seed)
     for it in range(max_iter):
         if combine:
             if it == (18*max_iter//20):
@@ -140,7 +139,7 @@ def ibFFT_CPU(pos, edgesrc, edgetgt, n_interpolation_points=3, intervals_per_int
             beta), d3alpha)
         dC += attr_force
         dC -= 0.01 * d3alpha * \
-            torch.normal(0, 1, size=pos.shape).numpy().astype(np.float32)
+            rng.normal(0, 1, size=pos.shape, dtype=np.float32)
         dC += d3alpha * ibFFT_repulsive(pos, n_interpolation_points,
                                         intervals_per_integer, min_num_intervals, np.float32(gamma), np.float32(paraFactor))
         ApplyForce(dC, pos, N)

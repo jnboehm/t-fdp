@@ -1,5 +1,4 @@
 
-import torch
 import numpy as np
 from .Exact_BH_Kernel import computebias, AttrForce, ApplyForce
 import sys
@@ -145,14 +144,13 @@ def RVS(pos, edgesrc, edgetgt, alpha=0.1, beta=8, gamma=2, max_iter=300,  seed=N
     nearestNodeInit(N, pos, nearestNodeIdxs, nearestNodeLen, numNeighbors)
     prevIndex = 0
 
-    if seed is not None:
-        torch.manual_seed(seed)
+    rng = np.random.default_rng(seed)
     for it in range(max_iter):
         AttrForce(attr_force, dC, pos, edgesrc, edgetgt, bias, N, np.float32(
             beta), d3alpha)
         dC += attr_force
         dC -= 0.01 * d3alpha * \
-            torch.normal(0, 1, size=pos.shape).numpy().astype(np.float32)
+            rng.normal(0, 1, size=pos.shape, dtype=np.float32)
         repl_force *= 0
         prevIndex = repl(pos, repl_force, nearestNodeIdxs, nearestNodeLen, indicesRepl, numNeighbors,
                          prevIndex, numUpdate, numSamples, d3alpha, paraFactor, gamma)

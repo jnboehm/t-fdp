@@ -1,5 +1,4 @@
 
-import torch
 import numpy as np
 from .Exact_BH_Kernel import *
 import sys
@@ -36,14 +35,13 @@ def Exact(pos, edgesrc, edgetgt, alpha=0.1, beta=8, gamma=2, max_iter=300,  seed
     edgetgt = np.array(edgetgt, dtype=np.int32)
     bias = np.zeros(edgetgt.shape[0], dtype=np.float32)
     computebias(N, edgesrc, edgetgt, bias)
-    if seed is not None:
-        torch.manual_seed(seed)
+    rng = np.random.default_rng(seed)
     for it in range(max_iter):
         AttrForce(attr_force, dC, pos, edgesrc, edgetgt, bias, N, np.float32(
             beta), d3alpha)
         dC += attr_force
         dC -= 0.01 * d3alpha * \
-            torch.normal(0, 1, size=pos.shape).numpy().astype(np.float32)
+            rng.normal(0, 1, size=pos.shape, dtype=np.float32)
         ReplForce(repl_force, pos, N, paraFactor, gamma, d3alpha)
         dC += repl_force
         ApplyForce(dC, pos, N)
