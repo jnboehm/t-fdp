@@ -1,13 +1,12 @@
+from distutils.core import setup
+from distutils.extension import Extension
+
 import numpy
 from Cython.Build import cythonize
-from numpy.distutils.core import Extension, setup
 
-# GCC_INC_DIR = "/usr/lib/gcc/x86_64-linux-gnu/5/include/"
-
-# package = Extension('bh_force', ['bh_force.pyx'], include_dirs=[numpy.get_include(),"/usr/lib/gcc/x86_64-linux-gnu/5/include/"])
 package = Extension(
     "bh_tforce",
-    ["bh_tforce.pyx"],
+    ["src/tfdp/bh_tforce/bh_tforce.pyx"],
     include_dirs=[numpy.get_include()],
     extra_compile_args=["-fopenmp"],
     extra_link_args=["-fopenmp"],
