@@ -1,15 +1,12 @@
-import pandas as pd
 from scipy.sparse import csr_matrix, tril
 import numpy as np
 import dask.dataframe  # to read large graph data
 from utils import pivotMDS, scaleByEdge, pivot_spd
 from simulation.ibFFT_CPU import ibFFT_CPU
-from simulation.ibFFT_GPU import ibFFT_GPU
 
 from simulation.Exact import Exact
 from simulation.BH import BH
 from simulation.RVS import RVS
-import torch
 import numba
 
 
@@ -138,6 +135,8 @@ class tFDP:
             posres, t = ibFFT_CPU(init, edgesrc, edgetgt, n_interpolation_points, self.intervals_per_integer, self.min_num_intervals,
                                   self.alpha, self.beta, self.gamma, self.max_iter, self.combine, self.randseed)
         if (self.algo == 'ibFFT_GPU'):
+            from simulation.ibFFT_GPU import ibFFT_GPU
+
             posres, t = ibFFT_GPU(init, edgesrc, edgetgt, n_interpolation_points, self.intervals_per_integer, self.min_num_intervals,
                                   self.alpha, self.beta, self.gamma, self.max_iter, self.combine, self.randseed)
 
