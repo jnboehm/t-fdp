@@ -6,7 +6,7 @@ from Cython.Build import cythonize
 
 package = Extension(
     "bh_tforce",
-    ["src/tfdp/bh_tforce/bh_tforce.c"],
+    ["src/tfdp/bh_tforce/bh_tforce.pyx"],
     include_dirs=[numpy.get_include()],
     extra_compile_args=["-fopenmp"],
     extra_link_args=["-fopenmp"],
