@@ -220,9 +220,5 @@ def RVS(
         pos[:, 1] -= (pos[:, 1].max() + pos[:, 1].min()) / 2
         # move to center
         dC *= 0.6
-        if (it + 1) % 5 == 0:
-            print(".", end="")
-            sys.stdout.flush()
-    print("\n", end="")
     ed = time.time()
     return pos, ed - st
