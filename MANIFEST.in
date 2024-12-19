@@ -1,1 +1,1 @@
-include src/tfdp/bh_tforce/bh_tforce.*
+graft *
