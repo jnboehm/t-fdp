@@ -1,6 +1,5 @@
 import numpy as np
 import sys
-import torch
 import time
 from .ibFFT_CPU_NumbaKernel import *
 from pyfftw.interfaces.numpy_fft import rfft2, irfft2
