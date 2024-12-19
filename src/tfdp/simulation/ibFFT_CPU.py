@@ -269,7 +269,7 @@ def ibFFT_CPU(
         )
         dC += attr_force
         dC -= (
-            0.01 * d3alpha * rng.normal(0, 1, size=pos.shape, dtype=np.float32)
+            0.01 * d3alpha * rng.normal(0, 1, size=pos.shape).astype("float32")
         )
         dC += d3alpha * ibFFT_repulsive(
             pos,

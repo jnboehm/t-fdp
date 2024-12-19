@@ -41,7 +41,7 @@ def BH(pos, edgesrc, edgetgt, alpha=0.1, beta=8, gamma=2, max_iter=300,  seed=No
             beta), d3alpha)
         dC += attr_force
         dC -= 0.01 * d3alpha * \
-            rng.normal(0, 1, size=pos.shape, dtype=np.float32)
+            rng.normal(0, 1, size=pos.shape).astype("float32")
         bh_tforce.tforce_neg_gradient(
             pos, repl_force, angle, d3alpha * paraFactor, n_components, verbose, num_threads=1)
         dC += repl_force

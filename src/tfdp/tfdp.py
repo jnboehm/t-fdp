@@ -149,7 +149,7 @@ class tFDP:
         edgetgt = self.edgetgt
         if isinstance(self.init, str) and self.init == "pmds":
             rng = np.random.default_rng(self.randseed)
-            noise_pos = 0.01 * rng.randn(graph.shape[0], 2)
+            noise_pos = 0.01 * rng.normal(size=(graph.shape[0], 2))
             pospds = pivotMDS(graph, edgesrc, edgetgt, NP=100, hidden_size=2)
             pospds *= 2 * scaleByEdge(pospds, edgesrc, edgetgt)
             init = 1.0 * pospds.copy() + noise_pos
