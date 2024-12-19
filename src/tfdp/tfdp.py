@@ -147,13 +147,13 @@ class tFDP:
         graph = self.graph
         edgesrc = self.edgesrc
         edgetgt = self.edgetgt
-        if isinstance(str, self.init) and self.init == "pmds":
+        if isinstance(self.init, str) and self.init == "pmds":
             rng = np.random.default_rng(self.randseed)
             noise_pos = 0.01 * rng.randn(graph.shape[0], 2)
             pospds = pivotMDS(graph, edgesrc, edgetgt, NP=100, hidden_size=2)
             pospds *= 2 * scaleByEdge(pospds, edgesrc, edgetgt)
             init = 1.0 * pospds.copy() + noise_pos
-        elif type(self.init) is np.ndarray and self.init.shape == (
+        elif isinstance(self.init, np.ndarray) and self.init.shape == (
             graph.shape[0],
             2,
         ):
