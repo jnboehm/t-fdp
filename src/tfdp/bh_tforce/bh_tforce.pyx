@@ -16,7 +16,7 @@ np.import_array()
 cdef char* EMPTY_STRING = ""
 
 cdef extern from "math.h" nogil:
-    float fabsf(float x) 
+    float fabsf(float x)
     # float powf(float, float)
     float sqrtf(float x)
     float powf(float x, float y)
@@ -100,7 +100,7 @@ cdef void compute_gradient(float[:] val_P,
 
     free(neg_f)
     free(pos_f)
-    
+
 
 cdef void compute_gradient_positive(float[:] val_P,
                                      float[:, :] pos_reference,
@@ -170,7 +170,7 @@ cdef void compute_gradient_positive(float[:] val_P,
         dt = ((float) (t2 - t1))
         printf("[fdp] Computed in %1.1e ticks\n",dt)
 
-    
+
 cdef void compute_gradient_negative(float[:, :] pos_reference,
                                       float* neg_f,
                                       _QuadTree qt,
@@ -258,7 +258,7 @@ cdef void compute_gradient_negative(float[:, :] pos_reference,
     # sum_Q = max(sum_Q, FLOAT64_EPS)
     # return sum_Q
 
-    
+
 cdef void compute_gradient_negative_tforce(float[:, :] pos_reference,
                                       float* neg_f,
                                       _QuadTree qt,
@@ -322,7 +322,7 @@ cdef void compute_gradient_negative_tforce(float[:, :] pos_reference,
                 if dof != 1:  # i.e. exponent != 1
                     qijZ = qijZ ** dof
                 # sum_Q += size * qijZ   # size of the node * q
-                mult = neg_c * size * qijZ 
+                mult = neg_c * size * qijZ
                 for ax in range(n_dimensions):
                     neg_force[ax] += mult * summary[j * offset + ax]
             if take_timing:
@@ -440,7 +440,7 @@ cdef void compute_neg_gradient(float[:, :] pos_reference,
             coord = i * n_dimensions + ax
             tot_force[i, ax] = neg_f[coord]
     free(neg_f)
-    
+
 cdef void compute_neg_gradient_tforce(float[:, :] pos_reference,
                             float[:, :] tot_force,
                             _QuadTree qt,
@@ -528,8 +528,8 @@ def neg_gradient(float[:, :] pos_output,
     # if not compute_error:
     #     C = np.nan
     # return C
-    
-    
+
+
 def tforce_neg_gradient(float[:, :] pos_output,
              float[:, :] forces,
              float theta,
